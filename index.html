@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EcoTrack — Environmental Complaint Tracking</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f5f7f5;color:#17231b}
+header{background:#176b45;color:white;padding:18px 7%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:800}.tag{opacity:.85;font-size:13px}
+nav button{background:transparent;border:0;color:white;font-weight:700;margin-left:18px;cursor:pointer}
+main{max-width:1050px;margin:35px auto;padding:0 20px}.hero{background:white;border-radius:20px;padding:32px;box-shadow:0 6px 25px #0000000d}
+h1{margin:0 0 10px;font-size:36px}.sub{color:#5b6b61;line-height:1.6}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:22px 0}.card{background:white;border-radius:16px;padding:22px;box-shadow:0 4px 18px #0000000a}.num{font-size:28px;font-weight:800;color:#176b45}
+section{display:none}.active{display:block}.btn{background:#176b45;color:#fff;border:0;border-radius:10px;padding:12px 18px;font-weight:700;cursor:pointer}
+form{background:white;padding:25px;border-radius:18px;box-shadow:0 4px 18px #0000000a}label{display:block;font-weight:700;margin:15px 0 7px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d5ddd8;border-radius:9px;font-size:15px}textarea{min-height:100px}
+.status{background:white;border-radius:16px;padding:22px;margin-top:20px}.badge{display:inline-block;padding:6px 10px;border-radius:20px;background:#fff2cc;color:#8a6500;font-size:12px;font-weight:800}
+.timeline{border-left:3px solid #176b45;padding-left:18px;margin-top:18px}.step{margin:16px 0}.done{color:#176b45;font-weight:700}
+footer{text-align:center;color:#718077;padding:30px}
+@media(max-width:700px){.cards{grid-template-columns:1fr}h1{font-size:28px}}
+</style>
+</head>
+<body>
+<header>
+  <div><div class="logo">🌱 EcoTrack</div><div class="tag">Environmental Complaint Tracking System</div></div>
+  <nav><button onclick="show('home')">Home</button><button onclick="show('report')">Report</button><button onclick="show('track')">Track</button></nav>
+</header>
+
+<main>
+<section id="home" class="active">
+  <div class="hero">
+    <h1>Report environmental problems. Track action.</h1>
+    <p class="sub">A simple digital platform for citizens to report littering, illegal dumping, water pollution and other local environmental issues.</p>
+    <button class="btn" onclick="show('report')">Report a Problem</button>
+  </div>
+  <div class="cards">
+    <div class="card"><div class="num">24</div><div>Complaints Received</div></div>
+    <div class="card"><div class="num">17</div><div>Resolved</div></div>
+    <div class="card"><div class="num">7</div><div>Under Review</div></div>
+  </div>
+  <div class="card">
+    <h2>How it works</h2>
+    <p><b>1. Input:</b> Complaint type, description, location and photo.</p>
+    <p><b>2. Processing:</b> System creates a complaint ID and routes it for action.</p>
+    <p><b>3. Output:</b> Citizen receives an ID and can track the complaint status.</p>
+  </div>
+</section>
+
+<section id="report">
+  <div class="hero"><h1>Report an Environmental Problem</h1><p class="sub">Submit details so the responsible authority can review the issue.</p></div>
+  <form onsubmit="submitComplaint(event)">
+    <label>Complaint Type</label>
+    <select id="type"><option>Illegal dumping</option><option>Littering</option><option>Water pollution</option><option>Air pollution</option><option>Other</option></select>
+    <label>Location</label><input id="location" required placeholder="e.g. Near college main gate">
+    <label>Description</label><textarea id="description" required placeholder="Describe the environmental problem..."></textarea>
+    <label>Photo / Evidence</label><input type="file" accept="image/*">
+    <label>Name (optional)</label><input id="name" placeholder="Your name">
+    <br><br><button class="btn">Submit Complaint</button>
+    <p id="submitted" style="display:none;color:#176b45;font-weight:700;margin-top:18px"></p>
+  </form>
+</section>
+
+<section id="track">
+  <div class="hero"><h1>Track Complaint</h1><p class="sub">Demo status page for a submitted environmental complaint.</p></div>
+  <div class="status">
+    <p><b>Complaint ID:</b> ECO-2026-00124</p>
+    <p><b>Issue:</b> Illegal dumping</p>
+    <p><b>Status:</b> <span class="badge">IN PROGRESS</span></p>
+    <div class="timeline">
+      <div class="step done">✓ Complaint submitted</div>
+      <div class="step done">✓ Complaint reviewed</div>
+      <div class="step done">✓ Forwarded to responsible authority</div>
+      <div class="step">○ Resolution pending</div>
+    </div>
+  </div>
+</section>
+</main>
+<footer>EcoTrack — Academic prototype for EVS Assignment</footer>
+
+<script>
+function show(id){
+ document.querySelectorAll('section').forEach(s=>s.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo(0,0);
+}
+function submitComplaint(e){
+ e.preventDefault();
+ const id='ECO-2026-'+Math.floor(10000+Math.random()*89999);
+ const msg=document.getElementById('submitted');
+ msg.textContent='✓ Complaint submitted successfully. Your Complaint ID is '+id;
+ msg.style.display='block';
+}
+</script>
+</body>
+</html>
